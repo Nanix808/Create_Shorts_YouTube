@@ -1,0 +1,6 @@
+*__pycache__/
+backround/*
+ download/*
+download_audio/*
+questions/*
+.env
