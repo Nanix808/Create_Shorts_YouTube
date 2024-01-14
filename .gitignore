@@ -1,6 +1,8 @@
 *__pycache__/
-backround/*
- download/*
+backgound/*
+download/*
 download_audio/*
 questions/*
 .env
+.DS_store
+!readme.md
