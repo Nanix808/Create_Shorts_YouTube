@@ -6,4 +6,6 @@ class CreateMovie(ABC):
     def create_video(self):
         pass
 
-   
+    @abstractmethod
+    def save_video(self):
+        pass
