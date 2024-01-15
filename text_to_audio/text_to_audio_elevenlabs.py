@@ -1,9 +1,6 @@
 from elevenlabs import generate, play, voices, save, VoiceSettings, Voice
 from text_to_audio.interface_text_to_audio import TextToAudio
-
-
-QUESTION = "Привет"
-ANSWER = "Привет"
+import os
 
 
 class TextToAudioElevenlabs(TextToAudio):
@@ -11,9 +8,11 @@ class TextToAudioElevenlabs(TextToAudio):
         self.text = text
         self.api_key = api_key
         self.voices = voices()
+        self.audio = None
+        self.name = None
 
     def text_to_audio(self):
-        audio = generate(
+        self.audio = generate(
             text=self.text,
             api_key=self.api_key,
             voice=Voice(
@@ -27,26 +26,16 @@ class TextToAudioElevenlabs(TextToAudio):
             ),
             model="eleven_multilingual_v2",
         )
+        return self
 
-        # audio = generate(
-        #     api_key=self.api_key,
-        #     text=self.text,
-        #     voice=self.voices[38],
-        #     model="eleven_multilingual_v2",
-        # )
-        # print(self.voices[38])
-        return audio
+    def delete_audio(self):
+        if os.path.exists(self.name):
+            os.remove(self.name)
 
-    def save_audio_to_mp3(self, audio):
-        name = self.text[:5]
-        full_name = f"download_audio/{name}.mp3"
-        save(audio, f"{full_name}")
-        return full_name
+    def save_audio_to_mp3(self):
+        self.name = f"download_audio/{self.text[:10]}.mp3"
+        save(self.audio, self.name)
+        return self
 
-    def play_audio(self, audio):
-        play(audio)
-
-
-# a = TextToAudioElevenlabs("Привет", "999d59e05fbe9884cf868f80fc58f66e")
-# s = a.text_to_audio()
-# a.save_audio_to_mp3(s)
+    def play_audio(self):
+        play(self.audio)
