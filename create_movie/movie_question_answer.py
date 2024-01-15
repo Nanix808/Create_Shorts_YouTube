@@ -9,8 +9,8 @@ class CreateVideoMoviepy(CreateMovie):
         answer: str,
         audio_question: str,
         audio_answer: str,
-        background_video: str = "backgound/background.mp4",
-        background_audio: str = "backgound/background.mp3",
+        background_video: str = "background/background.mp4",
+        background_audio: str = "background/background.mp3",
         countback: int = 7,
         name_chanel: str = "@codecases808",
     ) -> None:
@@ -23,6 +23,7 @@ class CreateVideoMoviepy(CreateMovie):
         self.background_audio = background_audio
         self.name_chanel = name_chanel
         self.countainer_movie = []
+        self.path = None
 
     def create_video(self):
         # Create audioclips questions and answer
@@ -124,4 +125,6 @@ class CreateVideoMoviepy(CreateMovie):
         return self
 
     def save_video(self):
-        self.countainer_movie.write_videofile(f"download/{self.question[:99]}.mp4")
+        self.path = f"download/{self.question[:99]}.mp4"
+        self.countainer_movie.write_videofile(self.path)
+        return self

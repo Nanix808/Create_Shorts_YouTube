@@ -9,7 +9,7 @@ class TextToAudioElevenlabs(TextToAudio):
         self.api_key = api_key
         self.voices = voices()
         self.audio = None
-        self.name = None
+        self.path = None
 
     def text_to_audio(self):
         self.audio = generate(
@@ -29,12 +29,12 @@ class TextToAudioElevenlabs(TextToAudio):
         return self
 
     def delete_audio(self):
-        if os.path.exists(self.name):
-            os.remove(self.name)
+        if os.path.exists(self.path):
+            os.remove(self.path)
 
     def save_audio_to_mp3(self):
-        self.name = f"download_audio/{self.text[:10]}.mp3"
-        save(self.audio, self.name)
+        self.path = f"download_audio/{self.text[:10]}.mp3"
+        save(self.audio, self.path)
         return self
 
     def play_audio(self):
