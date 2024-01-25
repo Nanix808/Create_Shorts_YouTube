@@ -16,10 +16,11 @@ class TextToAudioElevenlabs(TextToAudio):
             text=self.text,
             api_key=self.api_key,
             voice=Voice(
-                voice_id="pqHfZKP75CvOlQylNhV4",
+                voice_id="EXAVITQu4vr4xnSDxMaL",
+                name="Aphrodite",
                 settings=VoiceSettings(
-                    stability=0.71,
-                    similarity_boost=0.5,
+                    stability=0.3,
+                    similarity_boost=0.7,
                     style=0.0,
                     use_speaker_boost=True,
                 ),
