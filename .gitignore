@@ -6,3 +6,5 @@ questions/*
 .env
 .DS_store
 !readme.md
+cookies.txt
+*.png

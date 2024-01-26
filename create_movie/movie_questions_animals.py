@@ -33,19 +33,20 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
         # Create audioclips questions and answer
         audioclip_question = AudioFileClip(self.audio_question)
         audioclip_answer = AudioFileClip(self.audio_answer)
-        audioclip_promting = AudioFileClip(self.audio_promting)
+        audioclip_promting = AudioFileClip(self.audio_promting).volumex(0.3)
 
         # find out the duration of the question
         duration = audioclip_question.duration
+
         image = (
             ImageClip(self.answer_image)
-            .set_duration(5)
+            .set_duration(3.5)
+            .resize(width=920, height=750)  # если необходимо поменять размер...
+            .margin(top=40, opacity=0)  # (опционально) logo-border padding
+            .set_pos(("center", "top"))
             .set_start(duration + self.countback + 0.5)
         )
 
-        # Set the frames per second
-        image.fps = 30
-        image = image.set_position(lambda t: ("center", 50 + t))
         # remove artifact audio of the questions
         audioclip_question = audioclip_question.set_duration(duration - 0.1)
 
@@ -55,12 +56,13 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
             .fx(vfx.resize, width=1080)
             .fx(vfx.resize, height=1920)
             .fx(vfx.loop)
-            .set_duration(duration + self.countback + 5)
+            .set_duration(duration + self.countback + 4)
+            .set_position((0, 0), relative=True)
         )
 
         # add backround audio
         video.audio = AudioFileClip(self.background_audio).set_duration(
-            duration + self.countback + 5
+            duration + self.countback + 4.5
         )
 
         # make background music quieter
@@ -73,7 +75,7 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
                 str(time),
                 font="ArialUnicode",
                 fontsize=200.0,
-                color="green",
+                color="white",
                 method="caption",
                 size=(920, 200),
             )
@@ -89,8 +91,8 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
             TextClip(
                 self.question,
                 font="Arial",
-                fontsize=80,
-                color="green",
+                fontsize=90,
+                color="white",
                 method="caption",
                 size=(920, 1400),
             )
@@ -107,12 +109,12 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
                 self.answer,
                 font="Arial",
                 fontsize=150,
-                color="green",
+                color="white",
                 method="caption",
-                size=(920, 1400),
+                size=(920, 1150),
             )
-            .set_position((80, 60))
-            .set_duration(4.5)
+            .set_position((80, 300))
+            .set_duration(3.5)
             .set_start(duration + self.countback + 0.5)
         )
         txt_answer.audio = audioclip_answer.set_start(duration + self.countback + 0.5)
@@ -122,16 +124,16 @@ class CreateVideoAnimalsMoviepy(CreateMovie):
             TextClip(
                 self.name_chanel,
                 font="Arial",
-                fontsize=30,
+                fontsize=50,
                 color="black",
                 method="caption",
-                size=(920, 30),
+                size=(920, 50),
             )
-            .set_position((80, 1830))
-            .set_duration(duration + self.countback + 5)
+            .set_position((80, 1810))
+            .set_duration(duration + self.countback + 4)
         )
-        if audioclip_promting.duration >= 2:
-            audioclip_promting = audioclip_promting.set_duration(2)
+        if audioclip_promting.duration >= 6:
+            audioclip_promting = audioclip_promting.set_duration(6)
         txt_chanel.audio = audioclip_promting.set_start(
             duration + self.countback / 2 + 1
         )

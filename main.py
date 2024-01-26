@@ -25,10 +25,10 @@ for n, q, a in sheet_ranges:
         CreateVideoAnimalsMoviepy(
             q.value,
             a.value,
-            "download_audio\На овчарку.mp3",
-            "download_audio\Волк.mp3",
+            "download_audio\Чем можно .mp3",
+            "download_audio\Секретом.mp3",
             "sound_animals\Волк.mp3",
-            "background_animals_pictures\Волк.jpg",
+            "background_animals_pictures\wolf.png",
         ).create_video().save_video()
         # CreateVideoMoviepy(
         #     q.value, a.value, "download_audio\Корова..mp3", "download_audio\Корова..mp3"
